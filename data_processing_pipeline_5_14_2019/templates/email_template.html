@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h2 {
+            color: #111111;
+        }
+        body {
+            color: #111111;
+        }
+    </style>
+</head>
+<body>
+         <p>Hello,<br> The results of the {{business_segment}}</p>
+
+         <h2 style="color: cornflowerblue"><u>Environment/Location Information</u></h2>
+         <ul>
+             <li><b  style="color: dodgerblue">Hadoop Environment</b>: {{hadoop_env}} </li>
+             <li><b  style="color: dodgerblue">Python</b>: {{python_path}}</li>
+             <li><b  style="color: dodgerblue">csv file</b>: {{csv_file}}</li>
+             <li><b  style="color: dodgerblue">HDFS</b>: {{hadoop_path}}</li>
+             <li><b  style="color: dodgerblue">Hive</b>: {{hive}}</li>
+             <li><b  style="color: dodgerblue">Code Version</b>: {{code_version}}</li>
+         </ul>
+
+
+         <h2 style="color: cornflowerblue"><u>Reconciliation</u></h2>
+         <ul>
+             <li><i style="color: dodgerblue">Total Daily Windows Folder</i>: {{daily_win_total}}</li>
+             <li><i style="color: dodgerblue">Total DMS Summary Report</i>: {{dms_total}}</li>
+                {% if daily_win_total - dms_total == 0 %}
+                    <li style="color: deepskyblue; text-indent: 2em;"> OK </li>
+                {% else %}
+                    <li style="color: red; text-indent: 2em;"> Not Ok: {{daily_win_total - dms_total}} </li>
+                {% endif %}
+
+             <li><i style="color: dodgerblue">Total Python</i>:   {{total_python}}</li>
+             <li><i style="color: dodgerblue">Total Csv File</i>: {{total_csv_file}}</li>
+             {% if total_python - total_csv_file == 0%}
+                 <li style="color: deepskyblue; text-indent: 2em;"> OK </li>
+             {% else %}
+                <li style="color: red; text-indent: 2em;"> Not Ok: {{total_python - total_csv_file}} </li>
+             {% endif %}
+
+             <li><i style="color: dodgerblue">Total HDFS</i>: {{total_hdfs}}</li>
+             <li><i style="color: dodgerblue">Total Hive</i>: {{total_hive}}</li>
+             {% if total_hdfs - total_hive == 0 %}
+                <li style="color: lightskyblue; text-indent: 2em;"> OK </li>
+             {% else %}
+                <li style="color: red; text-indent: 2em;"> Not Ok: {{total_hdfs - total_hive}} </li>
+             {% endif %}
+
+             <li><i style="color: dodgerblue">Total Daily Windows Folder - ∑(Daily Text Mined Files)</i>: {{win_less}}</li>
+             <li><i style="color: dodgerblue">Total Python + Python Errors</i>: {{total_py_pyerr}}</li>
+             {% if win_less - total_py_pyerr == 0 %}
+                <li style="color: lightskyblue; text-indent: 2em;"> OK </li>
+             {% else %}
+                <li style="color: red; text-indent: 2em;"> Not Ok: {{win_less - total_py_pyerr}} </li>
+             {% endif %}
+         </ul>
+         <br>
+
+         <h2 style="color: cornflowerblue"><u>Count of Files by Location and Type</u></h2>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>File Type</td>
+                    <td>Text Mined</td>
+                    <td>Daily Windows Folder</td>
+                    <td>DMS Summary Report</td>
+                    <td>Python</td>
+                    <td>Csv file</td>
+                    <td>HDFS</td>
+                    <td>Hive</td>
+                </tr>
+            <tr>
+                <td>pdf</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>rtf</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>eml</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>doc</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>docx</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>txt</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>ppt</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+            </tr>
+            <tr>
+                <td>jpeg</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+            </tr>
+            </tbody>
+        </table>
+
+          <h2 style="color: cornflowerblue"><u>Detail of Python Errors for Text Mined File Types</u></h2>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <td>File Type</td>
+                    <td>Error = OSError</td>
+                    <td>Error = PickleError</td>
+                    <td>Error = ...</td>
+                    <td>TOTALS</td>
+                </tr>
+            <tr>
+                <td>pdf</td>
+                <td>OSError: Could not find path.</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>rtf</td>
+                <td>PickleError: Could not load pickle file.</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>eml</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>doc</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>docx</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>txt</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td>ppt</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+            </tr>
+            <tr>
+                <td>jpeg</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+                <td>N</td>
+            </tr>
+            </tbody>
+        </table>
+        </body>
