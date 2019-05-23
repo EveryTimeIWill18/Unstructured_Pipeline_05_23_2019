@@ -1,0 +1,10 @@
+{% extends "email_base.html" %}
+{% include 'files_by_location.html'%}
+{% block content %}
+    <ul>
+        {% for n in a_list %}
+            <li style="color: dodgerblue">{{n}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+<br>
