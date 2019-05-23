@@ -1,0 +1,8 @@
+{% extends "email_base.html" %}
+{% block content %}
+     <ul>
+        {% for n in a_list %}
+            <li style="color: dodgerblue">{{n*n}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
